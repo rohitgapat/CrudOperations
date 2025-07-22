@@ -79,7 +79,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		 Employee emp = empRepo.findById(id).get(); 
 		    emp.setDepartmentName(name);
 		    empRepo.save(emp);
-		
 	}
 	
 	public List<Employee> getEmployeeByCityId(Integer id) {
@@ -101,6 +100,4 @@ public class EmployeeServiceImpl implements EmployeeService {
 	            .build();                                		  
 		return res;
 	}
-	
-	
 }

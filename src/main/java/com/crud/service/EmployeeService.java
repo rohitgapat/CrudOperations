@@ -17,5 +17,4 @@ public interface EmployeeService {
 	void updateEmployeeName(Integer id, String name);
 	public List<Employee> getEmployeeByCityId(Integer id);
 	public EmployeeResponse getEmployeeDetailsById(Integer id);
-	
 }
