@@ -1,6 +1,6 @@
 package com.crud.model;
 
-import com.crud.entity.City;
+//import com.crud.entity.City;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +17,5 @@ public class EmployeeResponse {
 	private String designation;
 	private String email;
 	private Double salary;
-	private City city;
+	//private City city;
 }
