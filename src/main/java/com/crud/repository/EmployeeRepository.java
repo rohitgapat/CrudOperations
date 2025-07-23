@@ -9,6 +9,5 @@ import com.crud.entity.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	public List<Employee> findByCityCityId(Integer id);
-
 }
 
