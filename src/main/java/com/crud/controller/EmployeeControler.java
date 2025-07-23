@@ -33,49 +33,58 @@ public class EmployeeControler {
 	EmployeeService empServise;
 	
 	@GetMapping("/{id}")
-	public Employee getEmployeeName(@PathVariable Integer id) {
-		return empServise.getEmployeeById(id);
+	public ResponseEntity<EmployeeResponse> getEmployeeName(@PathVariable Integer id) {
+		EmployeeResponse emp= empServise.getEmployeeById(id);
+		if(emp!=null) {
+			return ResponseEntity.ok(emp);
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		
 	}
 	@PostMapping("/save")
-	public ResponseEntity<String> create(@RequestBody Employee emp) {
-		String save= empServise.createEmployee(emp);
+	public ResponseEntity<EmployeeResponse> create(@RequestBody EmployeeResponse emp) {
+		EmployeeResponse save= empServise.createEmployee(emp);
 		return ResponseEntity.status(HttpStatus.CREATED).body(save);
 	}
 	
 	@DeleteMapping ("/delete/{id}")
 	public ResponseEntity<String> delete (@PathVariable Integer id){
-		String del= empServise.deleteEmployeeById(id);
-		return ResponseEntity.ok(del);
+		EmployeeResponse del= empServise.deleteEmployee(id);
+		if(del!=null) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Employee>> getAllEmployees() {
-	    List<Employee> list = empServise.getAllEmployees();
+	public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
+	    List<EmployeeResponse> list = empServise.getAllEmployees();
 	    return ResponseEntity.ok(list);
 	}
 	
 	@GetMapping("student_details/{id}")
 	public ResponseEntity<String> getStudent(@PathVariable Integer id) {
-	    String studentDetails = empServise.getStudent(id).toString();
+	    String studentDetails = empServise.getStudent(id);
 		return ResponseEntity.ok(studentDetails);
 
 	}
 	
 	@PostMapping("/updatename/{id}")
-	public String updateEmployeeName(@PathVariable Integer id, @RequestBody String name) {
-	    empServise.updateEmployeeName(id, name);
-	    return "Employee name updated successfully";
+	public ResponseEntity<EmployeeResponse> updateEmployeeName(@PathVariable Integer id, @RequestBody EmployeeResponse name) {
+	    EmployeeResponse emp= empServise.updateEmployee(id, name);
+	    if(emp!=null) {
+	    	return ResponseEntity.ok(emp);
+	    }
+	    else {
+	    	return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	    }
 	}
 	
 	@GetMapping ("/cityid/{id}")
-	public ResponseEntity< List<Employee>> getEmployeeByCityId(@PathVariable Integer id) {
-		List<Employee> emp = empServise.getEmployeeByCityId(id);
+	public ResponseEntity<EmployeeResponse> getEmployeeByCityId(@PathVariable Integer id) {
+		EmployeeResponse emp = empServise.getEmployeeById(id);
 		  return ResponseEntity.ok(emp);
 	}
-	
-	  @GetMapping("employees/{id}")
-	    public ResponseEntity<EmployeeResponse> getEmployee(@PathVariable Integer id) {
-	        EmployeeResponse employee = empServise.getEmployeeDetailsById(id);
-	        return ResponseEntity.ok(employee);
-	    }
 }
